@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:calculator/layouts/simple.dart';
-import 'package:calculator/layouts/programm.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -8,12 +7,11 @@ void main() {
     initialRoute: "/",
     routes: {
       '/': (context) => SimpleCalculatorLayout(),
-      '/programmer': (context) => ProgrammCalculatorLayout(),
     },
   ));
 }
 
-class HeaderLayout extends StatelessWidget {
+class HeaderLayout extends StatefulWidget {
   const HeaderLayout({
     super.key,
     required this.textController,
@@ -21,6 +19,11 @@ class HeaderLayout extends StatelessWidget {
 
   final TextEditingController textController;
 
+  @override
+  State<HeaderLayout> createState() => _HeaderLayoutState();
+}
+
+class _HeaderLayoutState extends State<HeaderLayout> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -34,7 +37,7 @@ class HeaderLayout extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Image.asset('assets/calc.png', width: 20),
                 ),
-                Text(
+                const Text(
                   'Калькулятор',
                   style: TextStyle(color: Colors.white),
                 )
@@ -54,7 +57,7 @@ class HeaderLayout extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/programmer');
+                    //Navigator.pushNamed(context, '/programmer');
                   },
                   child: Row(
                     children: [Icon(Icons.code), Text(' Программист')],
@@ -66,11 +69,11 @@ class HeaderLayout extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 3),
               child: TextField(
-                controller: textController,
+                controller: widget.textController,
                 readOnly: true,
                 textAlign: TextAlign.end,
-                decoration: InputDecoration(border: InputBorder.none),
-                style: TextStyle(color: Colors.white, fontSize: 30),
+                decoration: const InputDecoration(border: InputBorder.none),
+                style: const TextStyle(color: Colors.white, fontSize: 30),
               ),
             ),
           ],
