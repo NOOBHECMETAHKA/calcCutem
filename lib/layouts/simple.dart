@@ -13,23 +13,6 @@ class _SimpleCalculatorLayoutState extends State<SimpleCalculatorLayout> {
   bool operationFunctin = false;
   int modeWork = 10;
 
-  void toRadixFunction({required int modeValue}) {
-    String result = '';
-
-    if (modeWork == 10) {
-      int finalValue = double.tryParse(textController.text)!.round().toInt();
-      result = finalValue.toRadixString(modeValue);
-      modeWork = modeValue;
-    } else {
-      int finalValue = double.tryParse(textController.text)!.round().toInt();
-      result = finalValue.toRadixString(10);
-      result = finalValue.toRadixString(modeValue);
-      modeWork = modeValue;
-    }
-
-    textController.text = result.toString();
-  }
-
   void mainFunction(String mathFunction) {
     switch (mathFunction) {
       case '+':
@@ -80,52 +63,57 @@ class _SimpleCalculatorLayoutState extends State<SimpleCalculatorLayout> {
       case 'HEX':
         if (!textController.text.toString().contains(RegExp(r'\+|\-|\*|\/')) &&
             textController.text.isNotEmpty) {
-              toRadixFunction(modeValue: 16);
+          int finalValue =
+              double.tryParse(textController.text)!.round().toInt();
+          String result = finalValue.toRadixString(16);
+          modeWork = 16;
+
+          textController.text = result.toString();
         }
 
         break;
       case 'OCT':
         if (!textController.text.toString().contains(RegExp(r'\+|\-|\*|\/')) &&
             textController.text.isNotEmpty) {
-              toRadixFunction(modeValue: 8);
-          // int finalValue =
-          //     double.tryParse(textController.text)!.round().toInt();
-          // String result = finalValue.toRadixString(8);
-          // modeWork = 8;
+          int finalValue =
+              double.tryParse(textController.text)!.round().toInt();
+          String result = finalValue.toRadixString(8);
+          modeWork = 8;
 
-          // textController.text = result.toString();
+          textController.text = result.toString();
         }
 
         break;
       case 'BIN':
         if (!textController.text.toString().contains(RegExp(r'\+|\-|\*|\/')) &&
             textController.text.isNotEmpty) {
-              toRadixFunction(modeValue: 2);
-          // int finalValue =
-          //     double.tryParse(textController.text)!.round().toInt();
-          // String result = finalValue.toRadixString(2);
-          // modeWork = 2;
+          int finalValue =
+              double.tryParse(textController.text)!.round().toInt();
+          String result = finalValue.toRadixString(2);
+          modeWork = 2;
 
-          // textController.text = result.toString();
+          textController.text = result.toString();
         }
 
         break;
       case 'DEC':
         if (!textController.text.toString().contains(RegExp(r'\+|\-|\*|\/')) &&
             textController.text.isNotEmpty) {
-              toRadixFunction(modeValue: 10);
-          // int finalValue =
-          //     double.tryParse(textController.text)!.round().toInt();
-          // String result = finalValue.toRadixString(10);
-          // modeWork = 10;
+          int finalValue =
+              double.tryParse(textController.text)!.round().toInt();
+          String result = finalValue.toRadixString(10);
+          modeWork = 10;
 
-          // textController.text = result.toString();
+          textController.text = result.toString();
         }
 
         break;
       default:
         operationFunctin = true;
         textController.text += mathFunction;
+        if (mathFunction.contains(RegExp(r'[A-B]'))) {
+          modeWork = 16;
+        }
         break;
     }
   }
